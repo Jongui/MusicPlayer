@@ -1,0 +1,134 @@
+.coursesDivMenu {
+    border-size: 1px;
+    border-style: solid;
+    border-color: #b7b7b7;
+    margin: left;
+    margin-left: 2%;
+    width: 17%;
+    background-color: white;
+    float: left;
+    /*border: 3px solid green;
+    padding: 20px;*/
+}
+
+.coursesDivInfo {
+    border-size: 1px;
+    border-style: solid;
+    border-color: #b7b7b7;
+    margin-left: 22%;
+    width: 70%;
+    background-color: white;
+    /*border: 3px solid green;*/
+    padding: 20px;
+    background-image: linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, .2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, .2) 50%,
+    rgba(255, 255, 255, .2) 75%,
+    transparent 75%,
+    transparent
+    );
+}
+.coursesClassDiv{
+    border-size: 1px;
+    border-style: solid;
+    border-color: #b7b7b7;
+    /*margin: left;*/
+    width: 40%;
+    /*float: left;*/
+    background-color: white;
+    /*border: 3px solid green;*/
+    padding: 20px;
+    background-image: linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, .2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, .2) 50%,
+    rgba(255, 255, 255, .2) 75%,
+    transparent 75%,
+    transparent
+    );
+}
+
+.classTaskDiv{
+    border-size: 1px;
+    border-style: solid;
+    border-color: #b7b7b7;
+    /*margin-right: 50%;*/
+    width: 40%;
+    float: right
+    background-color: white;
+    /*border: 3px solid green;*/
+    padding: 20px;
+    background-image: linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, .2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, .2) 50%,
+    rgba(255, 255, 255, .2) 75%,
+    transparent 75%,
+    transparent
+    );
+}
+
+progress[value]{
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    
+    width: 250px;
+    height: 20px;
+}
+
+progress[value]::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+progress[value]::-webkit-progress-value {
+    background-image:
+    -webkit-linear-gradient(-45deg,
+    transparent 33%, rgba(0, 0, 0, .1) 33%,
+    rgba(0,0, 0, .1) 66%, transparent 66%),
+    -webkit-linear-gradient(top,
+    rgba(255, 255, 255, .25),
+    rgba(0, 0, 0, .25)),
+    -webkit-linear-gradient(left, #09c, #09c);
+    border-radius: 2px;
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+
+li{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    width: 80%;
+    margin: left;
+    border-bottom: 1px solid black;
+    /*-webkit-box-shadow: 0 0px 6px 0px rgba(0,0,0,0.4) ;
+    box-shadow: 0 0px 6px 0px rgba(0,0,0,0.4) ;*/
+}
+
+.coursesUl {
+    border-top: 1px solid purple;
+    list-style-type: none;
+    width: 80%;
+    margin: left;
+    padding: 0;
+    padding-top: 10px;
+    
+}
+
+.coursesHeader{
+    
+}
+.lblCourse{
+    text-align: left
+}
+

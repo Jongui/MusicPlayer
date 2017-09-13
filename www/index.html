@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+         Personalize a política de segurança de conteúdo na marca meta abaixo, conforme necessário. Adicione 'unsafe-inline' ao default-src para habilitar o JavaScript embutido.
+         Para obter mais detalhes, consulte http://go.microsoft.com/fwlink/?LinkID=617521
+         -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+            
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/common.css">
+        <title>MusicPlayer</title>
+    </head>
+    <body>
+        <h1>Music player</h1>
+        <div id="loginDiv" class="loginDiv">
+            <div id="divUserName" class="fieldsDiv">
+                <label id="lblUserName">User name</label><input type="text" id="txtUserName" class="loginFrameText"></br>
+            </div>
+            <div id="divName" class="fieldsDiv">
+                <label id="lblName">Name</label><input type="text" id="txtName" class="loginFrameText" ></br>
+            </div>
+            <div id="divEmail" class="fieldsDiv">
+            <label id="lblEmail">E-mail</label><input type="text" id="txtEmail" class="loginFrameText" ></br>
+            </div>
+            <div id="divPassword" class="fieldsDiv">
+            <label id="lblPassword">Password</label><input type="password" id="txtPassword" class="loginFrameText"></br>
+            </div>
+            <div id="divConfirmPassword" class="fieldsDiv">
+            <label id="lblConfirmPassword">Confirm Password</label><input type="password" id="txtConfirmPassword" class="loginFrameText"></br></br>
+            </div>
+            <div class="fieldsDiv" style="display: inline-block">
+                <button id="btnLogin" class="btnBlue" style="display: none">Login</button>
+                <button id="btnCreateStudent" class="btnWhite" style="display: none">Create User</button>
+                <button id="btnConfirm" class="btnGreen" style="display: none">Confirm</button>
+                <button id="btnCancel" class="btnRed" style="display: none">Cancel</button>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/platformOverrides.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ -->
+<html>
+    <head>
+        <!--
+         Personalize a política de segurança de conteúdo na marca meta abaixo, conforme necessário. Adicione 'unsafe-inline' ao default-src para habilitar o JavaScript embutido.
+         Para obter mais detalhes, consulte http://go.microsoft.com/fwlink/?LinkID=617521
+         -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+            
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/common.css">
+        <link rel="stylesheet" type="text/css" href="css/keyboard.css">
+        <title>MusicPlayer</title>
+    </head>
+    <body>
+        <h1>Music player</h1>
+        <div class="keyboardDiv">
+            Instrument:
+            <select id="txtInstrument" class="loginFrameText">
+                
+            </select>
+            Dynamics:
+            <select id="selDynamic" class="loginFrameText">
+                <option value="22">pianissisimo</option>
+                <option value="37">pianissimo</option>
+                <option value="52">piano</option>
+                <option value="67">mezzo piano</option>
+                <option value="82">mezzo forte</option>
+                <option value="97">forte</option>
+                <option value="112">fortissimo</option>
+                <option value="127">fortississimo</option>
+            </select>
+        </div>
+        </br>
+        </br>
+        <div class="keyboardDiv">
+            <button id="btnPlay" class="btnBlue">Play Example</button>
+            <button id="btnRecord" class="btnRed">Record answer</button>
+            <button id="btnPlayAnswer" class="btnBlue">Play answer</button>
+            <button id="btnSend" class="btnGreen">Send answer</button>
+        </div>
+        </br>
+        </br>
+        <div class="keyboardDiv">
+            <button id="btnDo3" class="keyboard" value="60">C3</button>
+            <button id="btnRe3" class="keyboard" value="62">D3</button>
+            <button id="btnMi3" class="keyboard" value="64">E3</button>
+            <button id="btnFa3" class="keyboard" value="65">F3</button>
+            <button id="btnSol3" class="keyboard" value="67">G3</button>
+            <button id="btnLa3" class="keyboard" value="69">A3</button>
+            <button id="btnSi3" class="keyboard" value="71">B3</button>
+            <button id="btnDo4" class="keyboard" value="72">C4</button>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/platformOverrides.js"></script>
+        <script type="text/javascript" src="js/majorkeyboard.js"></script>
+    </body>
+</html>
