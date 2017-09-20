@@ -42,7 +42,7 @@ function onDeviceReady() {
     btnSend.addEventListener("click", sendAnwser, false);
     storage = window.localStorage;
     loadTaskInfo();
-    //document.addEventListener("backbutton", onBackKeyDown, false);
+    document.addEventListener("backbutton", onBackKeyDown, false);
     //var variable = localStorage.getObject('myObject');
     //console.log(variable);
 }
