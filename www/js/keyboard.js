@@ -7,6 +7,10 @@ var btnSol3 = createButton(document.getElementById("btnSol3"));
 var btnLa3 = createButton(document.getElementById("btnLa3"));
 var btnSi3 = createButton(document.getElementById("btnSi3"));
 var btnDo4 = createButton(document.getElementById("btnDo4"));
+var btnRe4 = createButton(document.getElementById("btnRe4"));
+var btnMi4 = createButton(document.getElementById("btnMi4"));
+var btnFa4 = createButton(document.getElementById("btnFa4"));
+var btnSol4 = createButton(document.getElementById("btnSol4"));
 var txtInstrument = document.getElementById("txtInstrument");
 var selChannel = document.getElementById("selChannel");
 var txtTempo = document.getElementById("txtTempo");
@@ -16,6 +20,7 @@ var btnPlay = document.getElementById("btnPlay");
 var btnPlayAnswer = document.getElementById("btnPlayAnswer");
 var btnRecord = document.getElementById("btnRecord");
 var btnSend = document.getElementById("btnSend");
+var btnInstrument = document.getElementById("btnInstrument");
 var ip = "http://192.168.0.103:8080/";
 var storage;
 var btnMap = new Map();
@@ -31,18 +36,24 @@ btnMap.set(67, btnSol3);
 btnMap.set(69, btnLa3);
 btnMap.set(71, btnSi3);
 btnMap.set(72, btnDo4);
+btnMap.set(74, btnRe4);
+btnMap.set(76, btnMi4);
+btnMap.set(77, btnFa4);
+btnMap.set(79, btnSol4);
 
 var notes;
 var indexNotes = 0;
+var lines;
 
 function onDeviceReady() {
     btnPlay.addEventListener("click", playPress, false);
     btnRecord.addEventListener("click", recordStatusProcess, false);
     btnPlayAnswer.addEventListener("click", playAnswerPress, false);
     btnSend.addEventListener("click", sendAnwser, false);
+    btnInstrument.addEventListener("click", playInstrument, false);
     storage = window.localStorage;
     loadTaskInfo();
-    document.addEventListener("backbutton", onBackKeyDown, false);
+    //document.addEventListener("backbutton", onBackKeyDown, false);
     //var variable = localStorage.getObject('myObject');
     //console.log(variable);
 }
@@ -92,13 +103,20 @@ function loadTaskInfo(){
                     idTask: idTask
                     }, { Authorization: "OAuth2: null" }, function (response) {
                     responseJson = JSON.parse(response.data);
-                    notes = responseJson.notes;
+                    lines = responseJson.lines;
+                    for (var i = 0; i < lines.length; i++){
+                        var line = lines[i];
+                        var instrument = line.inst;
+                        txtInstrument.options[i] = new Option(instrument.desc, instrument.desc);
+                        txtInstrument.options[i].value = instrument.code;
+                    }
+                    /*notes = responseJson.notes;
                     var instJson = responseJson.inst;
                     for(var i = 0; i < instJson.length; i++) {
                         var instrument = instJson[i];
                         txtInstrument.options[i] = new Option(instrument.desc, instrument.desc);
                         txtInstrument.options[i].value = instrument.code;
-                    }
+                    }*/
                     }, function (response) {
                     
                     });
@@ -109,13 +127,38 @@ function loadTaskInfo(){
 }*/
 
 function playPress() {
-    playNote(indexNotes, notes);
+    //http://192.168.0.103:8080/playTask?fileName=taskTest
+    var address = ip + "playTask";
+    var idCours = storage.getItem("idCours");
+    var idClasses = storage.getItem("idClasses");
+    var idTask = storage.getItem("idTask");
+    var fileName = "task" + idCours + idCours + idTask;
+    cordovaHTTP.get(address, {
+                        fileName: fileName
+                    }, { Authorization: "OAuth2: null" }, function (response) {
+                    console.log("Disparou teste");
+                    }, function (response) {
+                    
+                    });
+    //playNote(indexNotes, notes);
 }
 
 function playAnswerPress(){
-    console.log(taskAnswer.notes);
     indexNotes = 0;
     playNote(indexNotes, taskAnswer.notes);
+}
+
+function playInstrument(){
+    indexNotes = 0;
+    for(var i = 0; i < lines.length; i++){
+        var line = lines[i];
+        var instrument = line.inst;
+        if(instrument.code == txtInstrument.value){
+            notes = line.notes;
+            break;
+        }
+    }
+    playNote(indexNotes, notes);
 }
 
 function playNote(i, playNotes){
@@ -134,7 +177,7 @@ function playNote(i, playNotes){
                     channel: 0,
                     dynamic: selDynamic.value
                     }, { Authorization: "OAuth2: null" }, function (response) {
-                        btnPlaying.style.backgroundColor = "#229954";
+                        btnPlaying.style.backgroundColor = "#74AD5A";
                         indexNotes++;
                         playNote(indexNotes, playNotes);
                     }, function (response) {
@@ -151,6 +194,7 @@ function createButton(button) {
     var startTime, endTime;
     obj.touchstart = function () {
         var address = ip;
+        console.log(obj.note);
         cordovaHTTP.get(address, {
                         time: 1.00,
                         note: obj.note,
@@ -179,7 +223,7 @@ function createButton(button) {
                         dynamic: selDynamic.value,
                         action: 1
                         }, { Authorization: "OAuth2: null" }, function (response) {
-                        obj.button.style.backgroundColor = "#229954";
+                        obj.button.style.backgroundColor = "#74AD5A";
                         endTime = new Date().getTime() / 1000;
                         var deltaTime = endTime - startTime;
                         if(recording){
