@@ -46,7 +46,6 @@ function findPreferedLanguage(){
 }
 
 function defineTranslation(language){
-    console.log(language.value);
     switch(language.value){
         case "en-US":
             textsUI = translations.en;
@@ -107,10 +106,7 @@ function classesTasks(idClasses, idCours){
 }
 
 function handleStudentCoursesResponse(response){
-    console.log(response.data);
     coursesJson = JSON.parse(response.data);
-    console.log(coursesJson);
-    console.log(coursesJson.Courses);
     coursesHeaderDiv.innerHTML = "<ul id='listCourses' class='coursesUl' data-role='listview' >";
     var ul = document.getElementById("listCourses");
     for(var i = 0; i < coursesJson.Courses.length; i++){
@@ -127,13 +123,8 @@ function handleStudentCoursesResponse(response){
 
 function handleClassesCoursResponse(response, coursName){
     var classesJsonArray = JSON.parse(response.data);
-    console.log(classesJsonArray);
     coursesClassDiv.style.display = "inline-block";
     classTaskDiv.style.display = "none";
-    
-    /*var lblClassesCourses = document.getElementById("lblClassesCourses");
-     lblClassesCourses.style.display = "inline-block";
-     lblClassesCourses.innerHTML = coursName;*/
     
     coursesClassDiv.innerHTML = "<ul id='listClasses' data-role='listview' style='border-top: 1px solid purple;'>";
     var ul = document.getElementById("listClasses");
@@ -149,10 +140,7 @@ function handleClassesCoursResponse(response, coursName){
 }
 
 function handleClassesTasksResponse(response){
-    console.log(response.data);
     tasksJson = JSON.parse(response.data);
-    console.log(tasksJson);
-    console.log(tasksJson.Tasks);
     classTaskDiv.style.display = "inline-block";
     classTaskDiv.innerHTML = "<ul id='listTasks' data-role='listview' style='border-top: 1px solid purple;'>";
     var ul = document.getElementById("listTasks");
@@ -162,7 +150,6 @@ function handleClassesTasksResponse(response){
         var node=document.createElement("li");
         var textnode=document.createTextNode(json.description);
         node.id = json.idTasks;
-        console.log("Keyboard: " + json.keyboard);
         node.title = json.keyboard;
         node.appendChild(textnode);
         ul.appendChild(node);
@@ -181,21 +168,16 @@ function coursClickHandler(){
 
 function classesClickHandler(idCourses){
     var ul = document.getElementById('listClasses');
-    console.log("classesClickHandler");
     ul.onclick = function(event) {
         storage.setItem("idClasses", event.target.id);
-        console.log("Clicado em: " + event.target.id + "Curso: " + idCourses);
         classesTasks(event.target.id, idCourses);
     };
 }
 
 function tasksClickHandler(){
     var ul = document.getElementById('listTasks');
-    console.log("tasksClickHandler");
     ul.onclick = function(event) {
         storage.setItem("idTask", event.target.id);
-        console.log("Event: " + event.target.title);
         window.location = event.target.title + ".html";
-        //classesTasks(event.target.id, idCourses);
     };
 }

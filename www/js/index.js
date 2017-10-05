@@ -91,6 +91,7 @@ var divPassword = document.getElementById("divPassword");
 var divConfirmPassword = document.getElementById("divConfirmPassword");
 var storage;
 var ip = "http://192.168.0.103:8080/";
+var locale;
 //var db;
 
 function onDeviceReady() {
@@ -172,23 +173,6 @@ function createStudentRender(){
     btnCancel.style.display = "inline-block";
     
 }
-
-/* 
- Funções para acesso ao SQLite
-*/
-/*
-function createDatabase(){
-    db = window.sqlitePlugin.openDatabase({name: 'musicclasses.db', location: 'default'});
-    db.transaction(function(tx) {
-                   tx.executeSql('CREATE TABLE IF NOT EXISTS Students (idStudent, name, email, password)');
-    }, function(error) {
-                   console.log('Transaction ERROR: ' + error.message);
-    }, function() {
-                   console.log('Table created');
-    });
-    
-}
- */
 
 /*
  Funções para acesso ao LocalStorage
@@ -281,14 +265,14 @@ function loginUserClick(){
  */
 function loginUser(idStudent, password){
     //window.location = "courses.html";
-    //http://192.168.0.103:8080/login?idStudent=Android&password=aaa
+    //http://192.168.0.103:8080/login?idStudent=Android&password=aaa&locale=en-US
     var address = ip + "login";
     cordovaHTTP.get(address, {
                     idStudent: idStudent,
-                    password: password
+                    password: password,
+                    locale: locale
                     }, { Authorization: "OAuth2: null" }, function (response) {
-                        console.log(response.data);
-                    processReturnLogin(response.data);
+                        processReturnLogin(response.data);
                     }, function (response) {
                     console.log("Erro:" + response.error);
                     });
@@ -306,7 +290,7 @@ function processReturnLogin(data){
         
         navigator.notification.alert(jsonData.message, function(){
                                         window.location = "courses.html";
-                                     }, textsUI.loginTitle, "Done");
+                                     }, textsUI.loginTitle, "OK");
     } else {
         navigator.notification.alert(jsonData.message, function(){
                                      initialRender();
@@ -324,7 +308,7 @@ function findPreferedLanguage(){
 }
 
 function defineTranslation(language){
-    console.log(language.value);
+    locale = language.value;
     switch(language.value){
         case "en-US":
             textsUI = translations.en;
@@ -381,83 +365,3 @@ function validateFields(){
     }
     return ret;
 }
-
-/*
-document.addEventListener('deviceready', onDeviceReady, false);
-var btnDo3 = createButton(document.getElementById("btnDo3"), 60);
-var btnRe3 = createButton(document.getElementById("btnRe3"), 62);
-var btnMi3 = createButton(document.getElementById("btnMi3"), 64);
-var btnFa3 = createButton(document.getElementById("btnFa3"), 65);
-var btnSol3 = createButton(document.getElementById("btnSol3"), 67);
-var btnLa3 = createButton(document.getElementById("btnLa3"), 69);
-var btnSi3 = createButton(document.getElementById("btnSi3"), 71);
-var btnDo4 = createButton(document.getElementById("btnDo4"), 72);
-var txtInstrument = document.getElementById("txtInstrument");
-var selChannel = document.getElementById("selChannel");
-var txtTempo = document.getElementById("txtTempo");
-var selDynamic = document.getElementById("selDynamic");
-var currentNote = 0;
-var btnPlay = document.getElementById("btnPlay");
-function onDeviceReady() {
-    btnPlay.addEventListener("click", playPress, false);
-}
-
-function playPress() {
-    console.log("Play");
-    http://192.168.0.103:8080/majorscale?note=60&inst=01&dynamic=120
-    var address = "http://192.168.0.103:8080/majorscale";
-    cordovaHTTP.get(address, {
-                    note: 60,
-                    inst: txtInstrument.value,
-                    dynamic: selDynamic.value,
-                    }, { Authorization: "OAuth2: null" }, function (response) {
-                    
-                    }, function (response) {
-                    
-                    });
-    
-}
-
-function createButton(button, note) {
-    var obj = {};
-    obj.first = true;
-    obj.button = button;
-    obj.note = note;
-    obj.touchstart = function () {
-        var address = "http://192.168.0.103:8080/";
-        console.log("Click");
-        cordovaHTTP.get(address, {
-                        time: 1.00,
-                        note: obj.note,
-                        inst: txtInstrument.value,
-                        channel: 0,
-                        dynamic: selDynamic.value,
-                        action: 0
-                        }, { Authorization: "OAuth2: null" }, function (response) {
-                        obj.button.style.backgroundColor = "#000000";
-                        }, function (response) {
-                        console.log("Erro:" + response.error);
-                        });
-    }
-    obj.touchend = function () {
-        var address = "http://192.168.0.103:8080/";
-        console.log("Click");
-        cordovaHTTP.get(address, {
-                        time: 1.00,
-                        note: obj.note,
-                        inst: txtInstrument.value,
-                        channel: 0,
-                        dynamic: selDynamic.value,
-                        action: 1
-                        }, { Authorization: "OAuth2: null" }, function (response) {
-                        obj.button.style.backgroundColor = "#229954";
-                        }, function (response) {
-                        console.log("Erro:" + response.error);
-                        });
-    }
-    //obj.button.addEventListener("click", obj.onClick, false);
-    obj.button.addEventListener("touchstart", obj.touchstart, false);
-    obj.button.addEventListener("touchend", obj.touchend, false);
-    return obj.button;
-}
-*/

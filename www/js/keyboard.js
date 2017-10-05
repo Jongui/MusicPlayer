@@ -1,3 +1,33 @@
+var translations = {
+                    en:{
+                        playInst: "Play Inst.",
+                        playExample: "Play Example",
+                        recordAnswer: "Record answer",
+                        stopRecording: "Stop recording",
+                        playAnswer: "Play answer",
+                        sendAnswer: "Send answer",
+                        answerSend: "Answer send"
+                    },
+                    de:{
+                        playInst: "Inst. spielen",
+                        playExample: "Beisp. spielen",
+                        recordAnswer: "Antwort aufn.",
+                        stopRecording: "Aufn. stop",
+                        playAnswer: "Antw. spielen",
+                        sendAnswer: "Antw. senden",
+                        answerSend: "Antw. gesandt"
+                    },
+                    pt:{
+                        playInst: "Tocar inst.",
+                        playExample: "Tocar exemplo",
+                        recordAnswer: "Gravar resp.",
+                        stopRecording: "Parar grava.",
+                        playAnswer: "Tocar resp.",
+                        sendAnswer: "Enviar resp.",
+                        answerSend: "Resp. enviada"
+                    }
+};
+
 document.addEventListener('deviceready', onDeviceReady, false);
 var btnDo3 = createButton(document.getElementById("btnDo3"));
 var btnRe3 = createButton(document.getElementById("btnRe3"));
@@ -41,11 +71,14 @@ btnMap.set(76, btnMi4);
 btnMap.set(77, btnFa4);
 btnMap.set(79, btnSol4);
 
+var textsUI;
 var notes;
 var indexNotes = 0;
 var lines;
+var locale;
 
 function onDeviceReady() {
+    findPreferedLanguage();
     btnPlay.addEventListener("click", playPress, false);
     btnRecord.addEventListener("click", recordStatusProcess, false);
     btnPlayAnswer.addEventListener("click", playAnswerPress, false);
@@ -58,13 +91,23 @@ function onDeviceReady() {
     //console.log(variable);
 }
 
+function initialRender(){
+    // Textos dos botões
+    btnPlay.innerHTML = textsUI.playExample;
+    btnRecord.innerHTML = textsUI.recordAnswer;
+    btnPlayAnswer.innerHTML = textsUI.playAnswer;
+    btnSend.innerHTML = textsUI.sendAnswer;
+    btnInstrument.innerHTML = textsUI.playInst;
+}
 function recordStatusProcess(){
     if(recording){
         recording = false;
+        btnRecord.innerHTML = textsUI.recordAnswer;
     } else {
         taskAnswer = {};
         taskAnswer.notes = [];
         recording = true;
+        btnRecord.innerHTML = textsUI.stopRecording;
     }
 }
 
@@ -76,14 +119,20 @@ function sendAnwser(){
     var idStudent = storage.getItem("UserName");
     
     var address = ip + "sendAnswer";
+    var sendAnswer = JSON.stringify(taskAnswer);
+    console.log(sendAnswer);
     cordovaHTTP.get(address, {
                     idCours: idCours,
                     idClasses: idClasses,
                     idTask: idTask,
                     idStudent: idStudent,
-                    answer: taskAnswer
+                    answer: sendAnswer,
+                    locale: locale
                     }, {Authorization: "OAuth2: null" } , function(response){
-                        console.log(response);
+                        var jsonData = JSON.parse(response.data);
+                        navigator.notification.alert(jsonData.message, function(){
+                                                     
+                                                 }, textsUI.answerSend, "OK");
                     }, function(response){
                         console.log(response);
                     }
@@ -94,7 +143,7 @@ function loadTaskInfo(){
     var idCours = storage.getItem("idCours");
     var idClasses = storage.getItem("idClasses");
     var idTask = storage.getItem("idTask");
-    /*http://192.168.0.104:8080/loadTaskInfo?idCours=1&idClasses=1&idTask=1*/
+    /*http://192.168.0.103:8080/loadTaskInfo?idCours=1&idClasses=1&idTask=1*/
     var address = ip + "loadTaskInfo";
 
     cordovaHTTP.get(address, {
@@ -166,7 +215,6 @@ function playNote(i, playNotes){
         indexNotes = 0;
         return;
     }
-    console.log(playNotes[i].note);
     btnPlaying = btnMap.get(playNotes[i].note);
     btnPlaying.style.backgroundColor = "#000000";
     var address = ip + "playScript";
@@ -186,6 +234,34 @@ function playNote(i, playNotes){
    
 }
 
+function findPreferedLanguage(){
+    navigator.globalization.getPreferredLanguage(function(language){
+                                                 defineTranslation(language);
+                                                 },
+                                                 function(){
+                                                 
+                                                 });
+}
+
+function defineTranslation(language){
+    locale = language.value;
+    switch(language.value){
+        case "en-US":
+            textsUI = translations.en;
+            break;
+        case "pt-BR":
+            textsUI = translations.pt;
+            break;
+        case "de-DE":
+            textsUI = translations.de;
+            break;
+        default:
+            textsUI = translations.en;
+            break;
+    }
+    initialRender();
+}
+
 function createButton(button) {
     var obj = {};
     obj.first = true;
@@ -193,9 +269,10 @@ function createButton(button) {
     obj.note = button.value;
     var startTime, endTime;
     obj.touchstart = function () {
-        var address = ip;
+        var address = ip + "play";
         console.log(obj.note);
         cordovaHTTP.get(address, {
+                        //http://192.168.0.103:8080/play?time=1.0&note=60&inst=20&channel=0&dynamic=120&action=0
                         time: 1.00,
                         note: obj.note,
                         inst: txtInstrument.value,
@@ -214,8 +291,9 @@ function createButton(button) {
                         });
     }
     obj.touchend = function () {
-        var address = ip;
+        var address = ip + "play";
         cordovaHTTP.get(address, {
+                        //http://192.168.0.103:8080/play?time=1.0&note=60&inst=20&channel=0&dynamic=120&action=1
                         time: 1.00,
                         note: obj.note,
                         inst: txtInstrument.value,
