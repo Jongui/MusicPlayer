@@ -27,10 +27,10 @@
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
     <engine name="ios" spec="^4.4.0" />
-    <plugin name="com.compellingsoftware.plugins.http" spec="~0.3.0" />
-    <plugin name="cordova-plugin-dialogs" spec="^1.3.3" />
-    <plugin name="cordova-plugin-globalization" spec="^1.0.7" />
-    <plugin name="cordova-plugin-http" spec="^1.2.0" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
+    <plugin name="com.compellingsoftware.plugins.http" spec="~0.3.0" />
+    <plugin name="cordova-plugin-http" spec="^1.2.0" />
+    <plugin name="cordova-plugin-globalization" spec="^1.0.7" />
+    <plugin name="cordova-plugin-dialogs" spec="^1.3.3" />
     <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
 </widget>

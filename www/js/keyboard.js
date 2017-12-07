@@ -117,7 +117,7 @@ function sendAnwser(){
     var idClasses = storage.getItem("idClasses");
     var idTask = storage.getItem("idTask");
     var idStudent = storage.getItem("UserName");
-    
+
     var address = ip + "sendAnswer";
     var sendAnswer = JSON.stringify(taskAnswer);
     console.log(sendAnswer);
@@ -131,7 +131,7 @@ function sendAnwser(){
                     }, {Authorization: "OAuth2: null" } , function(response){
                         var jsonData = JSON.parse(response.data);
                         navigator.notification.alert(jsonData.message, function(){
-                                                     
+
                                                  }, textsUI.answerSend, "OK");
                     }, function(response){
                         console.log(response);
@@ -167,7 +167,7 @@ function loadTaskInfo(){
                         txtInstrument.options[i].value = instrument.code;
                     }*/
                     }, function (response) {
-                    
+
                     });
 }
 
@@ -187,7 +187,7 @@ function playPress() {
                     }, { Authorization: "OAuth2: null" }, function (response) {
                     console.log("Disparou teste");
                     }, function (response) {
-                    
+
                     });
     //playNote(indexNotes, notes);
 }
@@ -229,9 +229,9 @@ function playNote(i, playNotes){
                         indexNotes++;
                         playNote(indexNotes, playNotes);
                     }, function (response) {
-                    
+
                     });
-   
+
 }
 
 function findPreferedLanguage(){
@@ -239,7 +239,7 @@ function findPreferedLanguage(){
                                                  defineTranslation(language);
                                                  },
                                                  function(){
-                                                 
+
                                                  });
 }
 

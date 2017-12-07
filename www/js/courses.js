@@ -41,7 +41,7 @@ function findPreferedLanguage(){
                                                     studentCourses();
                                                  },
                                                  function(){
-                                                 
+
                                                  });
 }
 
@@ -125,7 +125,7 @@ function handleClassesCoursResponse(response, coursName){
     var classesJsonArray = JSON.parse(response.data);
     coursesClassDiv.style.display = "inline-block";
     classTaskDiv.style.display = "none";
-    
+
     coursesClassDiv.innerHTML = "<ul id='listClasses' data-role='listview' style='border-top: 1px solid purple;'>";
     var ul = document.getElementById("listClasses");
     for(var i = 0; i < classesJsonArray.Classes.length; i++){
